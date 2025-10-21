@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Matrices {
@@ -59,7 +61,13 @@ public class Matrices {
         for(int i=0;i<columnas;i++){
             System.out.println(resultadoColumna[i]);
         }
-
         
+        //Pasar la matriz a vector
+        int[] vectorMatriz=new int[filas*columnas];
+        for(int i=0;i<filas;i++){
+            for(int j=0;j<columnas;j++){
+                vectorMatriz[i*columnas+j]=matriz[i][j];
+            }
+        }
     }    
 }

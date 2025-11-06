@@ -59,6 +59,6 @@ public class Ahorcado {
         else{
             System.out.println("QUÉ PENA!! HAS PERDIDO!!");
         }
-        
+        teclado.close();
     }
 }

@@ -8,7 +8,7 @@ public class Laberinto {
         {'0', '#', '0', '0', '0'},
         {'0', '#', '0', '#', '0'},
         {'0', '0', '0', '#', '0'},
-        {'#', '#', '0', '0', '#'},
+        {'#', '#', '0', '#', '0'},
         {'0', '0', '#', '#', '0'}
     };
         for(int i=0;i<laberinto.length;i++){
@@ -50,11 +50,11 @@ public class Laberinto {
 
     //FUncion resolverDesde
     public static boolean resolverDesde(int x,int y,char[][] laberinto, int[][] solucion){
-        if(x==(laberinto.length-1) && y==(laberinto[0].length-1)){
+        if(x==(laberinto.length-1) && y==(laberinto[0].length-1) && laberinto[x][y] == '0'){
             solucion[x][y]=1;
             return true;
         }
-        if(esSeguro(x,y,laberinto)==true){
+        if(esSeguro(x,y,laberinto,solucion)==true){
             solucion[x][y]=1;
             //analizo el resto de caminos posibles
             if(resolverDesde(x+1,y,laberinto,solucion)==true) return true;
@@ -67,10 +67,10 @@ public class Laberinto {
         }
         return false;
     }
-    public static boolean esSeguro(int x, int y, char[][]laberinto){
-        if(x>=0 && x<=(laberinto.length-1) && y>=0 && y<=(laberinto[0].length-1) && laberinto[x][y]=='0'){
-            return true;
-        }
-        return false;
+    public static boolean esSeguro(int x, int y, char[][] laberinto, int[][] solucion) {
+        return (x >= 0 && x < laberinto.length &&
+                y >= 0 && y < laberinto[0].length &&
+                laberinto[x][y] == '0' && 
+                solucion[x][y] == 0);//Esto evita que pase dos veces por el mismo sitio
     }
 }

@@ -44,7 +44,7 @@ public class ActividadRevista{
                .getCodigo()==1)
             System.out.println(emp1);
         }
-       
+
 
 
 

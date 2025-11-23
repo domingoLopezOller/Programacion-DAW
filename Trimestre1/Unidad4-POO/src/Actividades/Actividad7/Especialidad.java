@@ -1,4 +1,5 @@
 package Actividades.Actividad7;
 
-public class Especialidad {
+public enum Especialidad {
+    FRENOS,HIDRÁULICA,ELECTRIDAD,MOTOR;
 }

@@ -5,7 +5,7 @@ package Practicas.Practica5;
  * anterior utilizando vector y ArrayList. Si quisiéramos ordenar usaremos:
  * sort((p1, p2) -> p1.getNombre().compareTo(p2.getNombre()))
  */
-public class Practica5 {
+public class AgendaDinamica {
 
     static void main() {
         //Necesito tener un vector de personas

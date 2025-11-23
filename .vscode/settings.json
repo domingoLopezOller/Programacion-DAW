@@ -2,5 +2,10 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "/home/usuario/Descargas/json-simple-1.1.1.jar"
-    ]
+    ],
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#263205",
+        "titleBar.activeBackground": "#354606",
+        "titleBar.activeForeground": "#F6FCE5"
+    }
 }

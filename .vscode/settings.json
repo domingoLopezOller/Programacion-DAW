@@ -1,5 +1,6 @@
 {
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "lib/**/*.jar",
+        "/home/usuario/Documentos/Ciclo Superior DAW/Programación/5- POO avanzado/json-simple-1.1.1.jar"
     ]
 }

@@ -1,6 +1,7 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "/home/usuario/Documentos/Ciclo Superior DAW/Programación/5- POO avanzado/json-simple-1.1.1.jar"
+        "/home/usuario/Documentos/Ciclo Superior DAW/Programación/5- POO avanzado/json-simple-1.1.1.jar",
+        "/home/usuario/Descargas/mysql-connector-j-9.5.0.jar"
     ]
 }

@@ -1,0 +1,234 @@
+/*EJERCICIO 1*/
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class QuitaComentarios {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Introduce la ruta del fichero .java: ");
+        String ruta = sc.nextLine();
+
+        File fichero = new File(ruta);
+
+        if (!fichero.exists()) {
+            System.out.println("El fichero no existe.");
+            return;
+        }
+
+        ArrayList<String> lineas = new ArrayList<>();
+
+        // Lectura del fichero
+        try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                // Elimina solo comentarios al inicio de línea
+                if (!linea.trim().startsWith("//")) {
+                    lineas.add(linea);
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error leyendo el fichero");
+            return;
+        }
+
+        // Escritura (sobrescribe el fichero)
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fichero))) {
+            for (String l : lineas) {
+                bw.write(l);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error escribiendo el fichero");
+        }
+
+        System.out.println("Comentarios eliminados correctamente.");
+    }
+}
+
+/*EJERCICIO 2*/
+try {
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObj = (JSONObject) parser.parse(jsonString);
+
+            JSONArray empleados = (JSONArray) jsonObj.get("empleados");
+            JSONObject direccion = (JSONObject) jsonObj.get("direccion");
+            String empresa = (String) jsonObj.get("empresa");
+
+            Scanner sc = new Scanner(System.in);
+            int opcion;
+
+            do {
+                System.out.println("\n--- MENÚ ---");
+                System.out.println("1- Número de empleados activos y nombres");
+                System.out.println("2- Número de empleados con rol administrador");
+                System.out.println("3- Datos de la empresa (Nombre y dirección)");
+                System.out.println("0- Salir");
+                System.out.print("Elige una opción: ");
+                opcion = sc.nextInt();
+
+                switch (opcion) {
+                    case 1:
+                        int activos = 0;
+                        System.out.print("Empleados activos: ");
+                        for (Object obj : empleados) {
+                            JSONObject emp = (JSONObject) obj;
+                            boolean activo = (boolean) emp.get("activo");
+                            if (activo) {
+                                activos++;
+                                System.out.print(emp.get("nombre") + " ");
+                            }
+                        }
+                        System.out.println("\nNúmero de empleados activos: " + activos);
+                        break;
+
+                    case 2:
+                        int admins = 0;
+                        for (Object obj : empleados) {
+                            JSONObject emp = (JSONObject) obj;
+                            JSONArray roles = (JSONArray) emp.get("roles");
+                            if (roles.contains("admin")) {
+                                admins++;
+                            }
+                        }
+                        System.out.println("Número de empleados con rol administrador: " + admins);
+                        break;
+
+                    case 3:
+                        System.out.println("Empresa: " + empresa);
+                        System.out.println("Dirección: " + direccion.get("ciudad") + ", " + direccion.get("pais"));
+                        break;
+
+                    case 0:
+                        System.out.println("Programa finalizado.");
+                        break;
+
+                    default:
+                        System.out.println("Opción no válida");
+                }
+
+            } while (opcion != 0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+/*EJERCICIO 3*/
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class Traductor {
+
+    public static void main(String[] args) {
+
+        // Diccionario español-inglés
+        HashMap<String, String> diccionario = new HashMap<>();
+        diccionario.put("caliente", "hot");
+        diccionario.put("frio", "cold");
+        diccionario.put("feliz", "happy");
+        diccionario.put("oro", "gold");
+
+        Scanner sc = new Scanner(System.in);
+        String palabra;
+
+        System.out.println("Introduce una palabra (o 'salir' para terminar):");
+
+        while (true) {
+            System.out.print("> ");
+            palabra = sc.nextLine().toLowerCase();
+
+            if (palabra.equals("salir")) {
+                System.out.println("Programa finalizado.");
+                break;
+            }
+
+            if (diccionario.containsKey(palabra)) {
+                System.out.println("En inglés la palabra es " + diccionario.get(palabra));
+            } else {
+                System.out.println("Palabra no encontrada en el diccionario");
+            }
+        }
+
+        sc.close();
+    }
+}
+
+/*EJERCICIO 4*/
+public interface Parkeable {
+
+    int MAX_PLAZAS = 50;
+
+    void entrar();
+    void salir();
+    double calcularPrecio(int horas);
+}
+public abstract class Vehiculo implements Parkeable {
+
+    protected String matricula;
+    protected static int plazasOcupadas = 0;
+
+    public Vehiculo(String matricula) {
+        this.matricula = matricula;
+    }
+
+    @Override
+    public void entrar() {
+        if (plazasOcupadas < MAX_PLAZAS) {
+            plazasOcupadas++;
+            System.out.println(matricula + " entra al parking.");
+        } else {
+            System.out.println("Parking completo. " + matricula + " no puede entrar.");
+        }
+    }
+
+    @Override
+    public void salir() {
+        if (plazasOcupadas > 0) {
+            plazasOcupadas--;
+            System.out.println(matricula + " sale del parking.");
+        }
+    }
+
+    public static int getPlazasOcupadas() {
+        return plazasOcupadas;
+    }
+}
+public class Coche extends Vehiculo {
+
+    public Coche(String matricula) {
+        super(matricula);
+    }
+
+    @Override
+    public double calcularPrecio(int horas) {
+        return horas * 2;
+    }
+}
+public class Main {
+
+    public static void main(String[] args) {
+
+        Parkeable v1 = new Coche("1111AAA");
+        Parkeable v2 = new Moto("2222BBB");
+        Parkeable v3 = new Coche("3333CCC");
+        Parkeable v4 = new Moto("4444DDD");
+        Parkeable v5 = new Coche("5555EEE");
+        Parkeable v6 = new Moto("6666FFF"); // supera el máximo
+
+        v1.entrar();
+        v2.entrar();
+        v3.entrar();
+        v4.entrar();
+        v5.entrar();
+        v6.entrar();
+
+        System.out.println(
+            "Plazas ocupadas: " +
+            Vehiculo.getPlazasOcupadas() +
+            " / " + Parkeable.MAX_PLAZAS
+        );
+    }
+}

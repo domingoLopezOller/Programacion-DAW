@@ -1,56 +1,54 @@
-import javax.swing.JButton;
-import javax.swing.JDialog;
+import java.io.File;
+
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JWindow;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
-//Para importar eventos
-import java.awt.event.*;
+public class App4{
+    public static void main(String[] args) {
+    //     String nombre = JOptionPane.showInputDialog(
+    //     null,
+    //     "Introduce tu nombre:",
+    //     "Entrada",
+    //     JOptionPane.QUESTION_MESSAGE
+    // );
 
-// 1) Creamos la clase ventana
-public class App4 extends JFrame implements ActionListener{
-    private JPanel panelDeContenido;
-    private JLabel numero1,numero2,resultado;
-    private JTextField campoDeTexto1,campoDeTexto2;
-    private JButton botonExit,botonNada;
-    private int numClicks;
-    public App4() {
-        initComponents();
-    }
-    private void initComponents() { 
-        // Configuramos los parámetros de la ventana
-        setTitle("Ejemplo de ventana");
-        setLocation(200,500); //setLocationRelativeTo(null); 
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // 2) Crear los componentes
-        botonExit = new JButton("CERRAR");
-        botonNada = new JButton("NO HACER NADA");
-        botonExit.addActionListener(this);
-        botonNada.addActionListener(this);
-// 3) Crear un contenedor
-        panelDeContenido = new JPanel();
-        // 4) Asociar los componentes al contenedor
-        
-        panelDeContenido.add(botonExit); panelDeContenido.add(botonNada);
-        
-        // 5) Asociar el contenedor a la ventana
-        setContentPane(panelDeContenido);
-        // 6) Hacer visible la ventana
-        setVisible(true);
-    }
-    @Override
-    public void actionPerformed(ActionEvent event){
-        Object origen=event.getSource();
-        if(origen==botonExit){
-            System.exit(0);
-        }
-        else{
-            this.dispose();
+    // JOptionPane.showMessageDialog(
+    //     null,                  // ventana padre
+    //     "Nombre introducido: "+nombre,   // mensaje
+    //     "Información",           // título
+    //     JOptionPane.INFORMATION_MESSAGE // tipo de mensaje
+    // );
+
+//     String[] opciones = {"Rojo", "Verde", "Azul"};
+// String color = (String) JOptionPane.showInputDialog(
+//     null,
+//     "Selecciona un color:",
+//     "Selector de color",
+//     JOptionPane.QUESTION_MESSAGE,
+//     null,       // icono
+//     opciones,   // opciones
+//     opciones[0] // valor por defecto
+// );
+//     JOptionPane.showMessageDialog(
+//         null,                  // ventana padre
+//         "Color introducido: "+color,   // mensaje
+//         "Información",           // título
+//         JOptionPane.INFORMATION_MESSAGE // tipo de mensaje
+//     );
+
+        //EJEMPLO FILECHOOSER
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Selecciona un fichero");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter( "Imágenes (*.jpg, *.png)", "jpg", "png");
+	    chooser.setFileFilter(filtro);
+        int resultado = chooser.showOpenDialog(null); // null = ventana padre
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File fichero = chooser.getSelectedFile();
+            System.out.println("Fichero seleccionado: " + fichero.getAbsolutePath());
+        } else {
+            System.out.println("No se seleccionó ningún fichero");
         }
     }
-    
 }

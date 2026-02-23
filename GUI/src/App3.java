@@ -11,48 +11,60 @@ import javax.swing.JWindow;
 import java.awt.event.*;
 
 // 1) Creamos la clase ventana
-public class App3 extends JFrame implements ActionListener{
+public class App3 extends WindowAdapter implements ActionListener {
     private JPanel panelDeContenido;
     private JLabel numero1,numero2,resultado;
     private JTextField campoDeTexto1,campoDeTexto2;
-    private JButton botonExit,botonNada;
+    private JButton boton;
+    private JFrame ventana;
     private int numClicks;
     public App3() {
         initComponents();
     }
-    private void initComponents() { 
+    private void initComponents() {
+        ventana = new JFrame();
         // Configuramos los parámetros de la ventana
-        setTitle("Ejemplo de ventana");
-        setLocation(200,500); //setLocationRelativeTo(null); 
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setTitle("Ejemplo de ventana");
+        ventana.setLocation(200,500); //setLocationRelativeTo(null); 
+        ventana.setSize(300, 200);
+        ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         // 2) Crear los componentes
-        botonExit = new JButton("CERRAR");
-        botonNada = new JButton("NO HACER NADA");
-        botonExit.addActionListener(this);
-        botonNada.addActionListener(this);
+        boton = new JButton("Mostrar ventana");
+        boton.addActionListener(this);
 // 3) Crear un contenedor
         panelDeContenido = new JPanel();
         // 4) Asociar los componentes al contenedor
         
-        panelDeContenido.add(botonExit); panelDeContenido.add(botonNada);
+        panelDeContenido.add(boton);
         
         // 5) Asociar el contenedor a la ventana
-        setContentPane(panelDeContenido);
+        ventana.setContentPane(panelDeContenido);
+        ventana.addWindowListener(this);
         // 6) Hacer visible la ventana
-        setVisible(true);
+        ventana.setVisible(true);
     }
     @Override
-    public void actionPerformed(ActionEvent event){
-        Object origen=event.getSource();
-        if(origen==botonExit){
-            new App4();
-        }
-        else{
-            
-        }
+    public void actionPerformed(ActionEvent e) {
+            mostrarConfirmacion();
     }
-    
+    @Override
+    public void windowClosing(WindowEvent e) {
+        mostrarConfirmacion();
+    }
+    private void mostrarConfirmacion() {
+    int opcion = JOptionPane.showConfirmDialog(
+        ventana, // ventana padre o this si extiendes JFrame
+        "¿Seguro que desea salir?", // mensaje
+        "Confirmar salida", // título
+        JOptionPane.YES_NO_OPTION, // tipo de opciones
+        JOptionPane.QUESTION_MESSAGE // icono
+    );
+
+    if (opcion == JOptionPane.YES_OPTION) {
+        System.exit(0);
+    }
+    // si es NO, no hace nada y la ventana principal sigue abierta
+}
     public static void main(String[] args) {
         App3 ejemplo = new App3();
     }

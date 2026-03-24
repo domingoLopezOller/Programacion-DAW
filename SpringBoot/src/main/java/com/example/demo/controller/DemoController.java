@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -22,21 +24,20 @@ public class DemoController {
     public String contacto(Model model) {
         return "contacto";
     }
+    //ruta ESPECÍFICA
+    @GetMapping("/ciclos/nuevo")
+    public String nuevoCiclo() {
+        return "nuevo";
+    }
+    //Ruta dinámica general
     @GetMapping("/ciclos/{id}")
     public String ciclo(@PathVariable String id, Model model) {
         model.addAttribute("ciclo", id);
         return "ciclo";
     }
-    @GetMapping("/asir")
-    public String asir(Model model) {
-        return "asir";
-    }
-    @GetMapping("/daw")
-    public String daw(Model model) {
-        return "daw";
-    }
-    @GetMapping("/smr")
-    public String smr(Model model) {
-        return "smr";
-    }
+    // @GetMapping("/productos/{id}")
+    // public String ciclo(@PathVariable int id, Model model) {
+    //     model.addAttribute("numero", id);
+    //     return "productos";
+    // }
 }

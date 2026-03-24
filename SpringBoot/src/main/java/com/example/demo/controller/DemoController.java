@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Controller
@@ -20,6 +21,11 @@ public class DemoController {
     @GetMapping("/contacto")
     public String contacto(Model model) {
         return "contacto";
+    }
+    @GetMapping("/ciclos/{id}")
+    public String ciclo(@PathVariable String id, Model model) {
+        model.addAttribute("ciclo", id);
+        return "ciclo";
     }
     @GetMapping("/asir")
     public String asir(Model model) {
